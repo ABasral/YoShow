@@ -44,7 +44,7 @@ public class NewStoryActivity2 extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_story);
-        Toast.makeText(this,"ALIGN THE SUBJECT TO THE SCREEN",Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"ALIGN THE SUBJECT TO THE SCREEN",Toast.LENGTH_LONG).show();
         publicvar g = publicvar.getInstance();
         g.setData(2);
         init();
@@ -59,12 +59,15 @@ public class NewStoryActivity2 extends Activity {
         this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
 //        File saveFolder = new File(Environment.getExternalStorageDirectory(), "Stories/" + getTimestamp());
-     FilePaths filePaths = new FilePaths();
+        FilePaths filePaths = new FilePaths();
         File saveFolder = new File(filePaths.STORIES);
         try{
             if (!saveFolder.mkdirs());
+            saveFolder.mkdirs();
+            Log.i(TAG,"Folder stories created");
+            //String filePath = saveFolder.getAbsolutePath() + File.separator;
         }catch (RuntimeException e){
-            e.printStackTrace();
+            Log.e("Creating Stories", e.getMessage());
         }
           /*File saveFolder1 = new File( Environment.getExternalStorageDirectory(),"UDIRECT");
         try{
@@ -110,8 +113,7 @@ public class NewStoryActivity2 extends Activity {
                     .audioDisabled(false)                              // Set to true to record video without any audio.
                     .countdownSeconds(60f)
                     .start(CAMERA_RQ);
-        }
-        else{
+        } else{
             Log.d(TAG, "init: starting camera with STILLSHOT enabled.");
             mMaterialCamera
                     .allowRetry(true)                                  // Whether or not 'Retry' is visible during playback

@@ -79,8 +79,6 @@
             android:name=".materialcamera.CaptureActivity2"
             android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

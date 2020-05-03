@@ -108,12 +108,12 @@
 </LinearLayout>
 
     <ProgressBar
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"/>
 
-    <TextView
+  <!--  <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please wait..."
@@ -122,7 +122,7 @@
         android:layout_alignBottom="@+id/progressBar"
         android:layout_alignRight="@+id/progressBar"
         android:layout_alignLeft="@+id/progressBar"
-        android:id="@+id/loadingPleaseWait"/>
+        android:id="@+id/loadingPleaseWait"/>-->
 
 </RelativeLayout>
 

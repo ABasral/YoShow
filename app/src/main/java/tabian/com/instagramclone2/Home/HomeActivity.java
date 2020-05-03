@@ -9,18 +9,22 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;*/
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
@@ -29,6 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.io.File;
 
 import tabian.com.instagramclone2.Login.LoginActivity;
 import tabian.com.instagramclone2.R;
@@ -44,6 +50,7 @@ import tabian.com.instagramclone2.opengl.NewStoryActivity;
 
 public class HomeActivity extends AppCompatActivity implements
         MainFeedListAdapter.OnLoadMoreItemsListener{
+
 
     @Override
     public void onLoadMoreItems() {
@@ -61,7 +68,8 @@ public class HomeActivity extends AppCompatActivity implements
     private static final int RESULT_ADD_NEW_STORY = 7891;
     private final static int CAMERA_RQ = 6969;
     private static final int REQUEST_ADD_NEW_STORY = 8719;
-
+    private static final int CAMERA_PERMISSION_CODE = 100;
+    private static final int STORAGE_PERMISSION_CODE = 101;
     private Context mContext = HomeActivity.this;
 
     //firebase
@@ -81,13 +89,97 @@ public class HomeActivity extends AppCompatActivity implements
         mViewPager = (ViewPager) findViewById(R.id.viewpager_container);
         mFrameLayout = (FrameLayout) findViewById(R.id.container);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.relLayoutParent);
-
-          setupFirebaseAuth();
+        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, STORAGE_PERMISSION_CODE);
+        //createDirectory();
+        setupFirebaseAuth();
 
         initImageLoader();
         setupBottomNavigationView();
         setupViewPager();
 
+    }
+
+    // Function to check and request permission.
+    public void checkPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(HomeActivity.this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(HomeActivity.this,
+                    new String[] { permission },
+                    requestCode);
+        }
+        else {
+            Toast.makeText(HomeActivity.this,
+                    "Permission already granted",
+                    Toast.LENGTH_SHORT)
+                    .show();
+            createDirectory();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults)
+    {
+        super
+                .onRequestPermissionsResult(requestCode,
+                        permissions,
+                        grantResults);
+
+//        if (requestCode == CAMERA_PERMISSION_CODE) {
+//            if (grantResults.length > 0
+//                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(HomeActivity.this,
+//                        "Camera Permission Granted",
+//                        Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//            else {
+//                Toast.makeText(HomeActivity.this,
+//                        "Camera Permission Denied",
+//                        Toast.LENGTH_SHORT)
+//                        .show();
+//            }
+//        }
+         if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(HomeActivity.this,
+                        "Storage Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                createDirectory();
+            }
+            else {
+                Toast.makeText(HomeActivity.this,
+                        "Storage Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    public void createDirectory(){
+
+        File file = new File(Environment.getExternalStorageDirectory()+"/UDIRECT");
+        boolean success = true;
+        if(!file.exists()) {
+            file.mkdirs();
+            Toast.makeText(getApplicationContext(),"Directory does not exist, creating directory",
+                    Toast.LENGTH_LONG).show();
+            success = true;
+        }
+        if(success) {
+            Toast.makeText(getApplication(),"Directory created",
+                    Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this,"Failed to create Directory",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     public void openNewStoryActivity(){

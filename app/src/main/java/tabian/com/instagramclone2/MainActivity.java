@@ -17,24 +17,23 @@ private TextView nextbut;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nextbut = (TextView) findViewById(R.id.nextpage);
-        nextbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+//        nextbut = (TextView) findViewById(R.id.nextpage);
+//        nextbut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
-/*
-new Handler().postDelayed(new Runnable(){
+    new Handler().postDelayed(new Runnable(){
     @Override
     public void run(){
 
         Intent intent = new Intent(MainActivity.this,tabian.com.instagramclone2.Login.LoginActivity.class);
         startActivity(intent);
-    }
-        },4000);*/
+             }
+        },4000);
 
     }
 

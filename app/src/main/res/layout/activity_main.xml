@@ -29,7 +29,7 @@
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="@string/underlined_next"
+              android:text="@string/splash_text"
               android:textSize="25dp"
               android:id="@+id/nextpage"
               android:textAlignment="center"

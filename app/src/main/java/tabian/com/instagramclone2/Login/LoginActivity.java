@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mPleaseWait = (TextView) findViewById(R.id.pleaseWait);
+        //mPleaseWait = (TextView) findViewById(R.id.pleaseWait);
         mEmail = (EditText) findViewById(R.id.input_email);
         mPassword = (EditText) findViewById(R.id.input_password);
         mContext = LoginActivity.this;
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
         googleSignInButton = findViewById(R.id.sign_in_button);
 
-        mPleaseWait.setVisibility(View.GONE);
+ //     mPleaseWait.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.GONE);
 
         FirebaseApp.initializeApp(this);
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                      Toast.makeText(mContext, "You must fill out all the fields", Toast.LENGTH_SHORT).show();
                  }else{
                      mProgressBar.setVisibility(View.VISIBLE);
-                     mPleaseWait.setVisibility(View.VISIBLE);
+                     //mPleaseWait.setVisibility(View.VISIBLE);
 
                      mAuth.signInWithEmailAndPassword(email, password)
                              .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                                          Toast.makeText(LoginActivity.this, getString(R.string.auth_failed),
                                                  Toast.LENGTH_SHORT).show();
                                          mProgressBar.setVisibility(View.GONE);
-                                         mPleaseWait.setVisibility(View.GONE);
+                                         //mPleaseWait.setVisibility(View.GONE);
                                      }
                                      else{
                                          try{
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                                                  }else{
                                                      Toast.makeText(mContext, "Email is not verified \n check your email inbox.", Toast.LENGTH_SHORT).show();
                                                      mProgressBar.setVisibility(View.GONE);
-                                                     mPleaseWait.setVisibility(View.GONE);
+                                                     //mPleaseWait.setVisibility(View.GONE);
                                                      mAuth.signOut();
                                                  }
                                              }

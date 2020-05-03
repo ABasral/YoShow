@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(checkInputs(email, username, password)){
                     mProgressBar.setVisibility(View.VISIBLE);
-                    loadingPleaseWait.setVisibility(View.VISIBLE);
+                   // loadingPleaseWait.setVisibility(View.VISIBLE);
 
                     firebaseMethods.registerNewEmail(email, password, username);
                 }
@@ -100,11 +100,11 @@ public class RegisterActivity extends AppCompatActivity {
         mUsername = (EditText) findViewById(R.id.input_username);
         btnRegister = (Button) findViewById(R.id.btn_register);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        loadingPleaseWait = (TextView) findViewById(R.id.loadingPleaseWait);
+       // loadingPleaseWait = (TextView) findViewById(R.id.loadingPleaseWait);
         mPassword = (EditText) findViewById(R.id.input_password);
         mContext = RegisterActivity.this;
         mProgressBar.setVisibility(View.GONE);
-        loadingPleaseWait.setVisibility(View.GONE);
+       // loadingPleaseWait.setVisibility(View.GONE);
 
     }
 
